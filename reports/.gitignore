@@ -1,3 +1,7 @@
 /baseline_metrics.json
 /baseline_comparison.md
 /training_summary.json
+/significance_tests.json
+/registry_summary.json
+/evaluation_metrics.json
+/model_comparison.md

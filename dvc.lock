@@ -223,3 +223,70 @@ stages:
       hash: md5
       md5: 285d72865bd780d94134cf1d54fd2ad9
       size: 12256
+  evaluate:
+    cmd: .\venv\Scripts\python.exe -m src.models.evaluate
+    deps:
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 9bb3bc58c9afa377717da17b1cdf88e1
+      size: 2116273
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1e1adde9b1fea2be0c0bef1d80b1ff77
+      size: 23171
+    - path: mlflow.db
+      hash: md5
+      md5: 1aa3f16dc4328b23aaf91b56f4a0b929
+      size: 1716224
+    - path: reports/training_summary.json
+      hash: md5
+      md5: 285d72865bd780d94134cf1d54fd2ad9
+      size: 12256
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: 539fa35b20e2029edddd10329c14a0b6
+      size: 9972
+    - path: src/models/metrics.py
+      hash: md5
+      md5: afdd20ad8eed10f10567a0b7e86c7ae7
+      size: 924
+    - path: src/models/registry.py
+      hash: md5
+      md5: f8b86947636973f8af05defe8ff98b1d
+      size: 2285
+    - path: src/models/train.py
+      hash: md5
+      md5: 559da2ba34e1c6ceb3890a74091ff015
+      size: 12379
+    - path: src/utils/config.py
+      hash: md5
+      md5: 09a6537afda49d818aef2ba42eb934b0
+      size: 565
+    - path: src/utils/mlflow_utils.py
+      hash: md5
+      md5: 1afdbf835a93278f9b73fb7382bf4625
+      size: 1250
+    params:
+      params.yaml:
+        evaluation.significance_level: 0.05
+        evaluation.top_n_models: 3
+        mlflow.registered_model_name: house-price-predictor
+        mlflow.tracking_uri: sqlite:///mlflow.db
+        training.cv_folds: 5
+    outs:
+    - path: reports/evaluation_metrics.json
+      hash: md5
+      md5: 506afb95202e8aa39d22755aec984e88
+      size: 3450
+    - path: reports/model_comparison.md
+      hash: md5
+      md5: 34df9f28033a9b9fd058a78ed005bef9
+      size: 1462
+    - path: reports/registry_summary.json
+      hash: md5
+      md5: 2b98bf397d4e8da70c2b6bce689632e7
+      size: 454
+    - path: reports/significance_tests.json
+      hash: md5
+      md5: bc23beed05d2456a30af2b2aa1399972
+      size: 1879

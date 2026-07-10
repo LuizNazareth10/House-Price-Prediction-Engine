@@ -90,3 +90,28 @@ stages:
       - models/best_model.pkl
     metrics:
       - reports/training_summary.json
+
+  evaluate:
+    cmd: .\venv\Scripts\python.exe -m src.models.evaluate
+    deps:
+      - src/models/evaluate.py
+      - src/models/registry.py
+      - src/models/train.py
+      - src/models/metrics.py
+      - src/utils/mlflow_utils.py
+      - src/utils/config.py
+      - data/processed/X_train.csv
+      - data/processed/y_train.csv
+      - reports/training_summary.json
+      - mlflow.db
+    params:
+      - training.cv_folds
+      - evaluation.top_n_models
+      - evaluation.significance_level
+      - mlflow.tracking_uri
+      - mlflow.registered_model_name
+    metrics:
+      - reports/significance_tests.json
+      - reports/registry_summary.json
+      - reports/evaluation_metrics.json
+      - reports/model_comparison.md

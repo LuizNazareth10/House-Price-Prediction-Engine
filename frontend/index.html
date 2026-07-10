@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>House Price Prediction Engine — MLOps Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-1"></div>
+  <div class="ambient ambient-2"></div>
+
+  <nav class="nav">
+    <div class="nav-brand">
+      <span class="brand-icon">◆</span>
+      <div>
+        <strong>House Price Engine</strong>
+        <small>MLOps · Ames Housing</small>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="#models">Modelos</a>
+      <a href="#examples">Exemplos</a>
+      <a href="#predict">Simular</a>
+    </div>
+    <div class="nav-status" id="health-badge">
+      <span class="pulse"></span>
+      <span>Conectando…</span>
+    </div>
+  </nav>
+
+  <header class="hero" id="overview">
+    <div class="hero-content">
+      <p class="eyebrow">Foundation Project · Fases 1–10</p>
+      <h1>Orquestração MLOps<br /><em>do dado à produção</em></h1>
+      <p class="hero-sub" id="hero-tagline">Pipeline reproduzível com DVC, MLflow Registry e inferência FastAPI.</p>
+      <div class="hero-metrics" id="hero-metrics"></div>
+    </div>
+    <div class="hero-visual">
+      <div class="orbit-card">
+        <div class="orbit-ring"></div>
+        <div class="orbit-center">
+          <span class="orbit-label">Melhor modelo</span>
+          <strong id="hero-best-mae">—</strong>
+          <small id="hero-best-r2">R² —</small>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="pipeline">
+    <div class="section-head">
+      <span class="section-tag">Fases 2–8</span>
+      <h2>Pipeline DVC</h2>
+      <p>Fluxo reproduzível versionado — <code>dvc repro</code> do dado bruto ao modelo em produção.</p>
+    </div>
+    <div class="pipeline-flow" id="pipeline-flow"></div>
+  </section>
+
+  <section class="section section-split">
+    <div class="panel glass">
+      <div class="section-head compact">
+        <span class="section-tag">Fase 4</span>
+        <h2>Baseline vs Engineered</h2>
+      </div>
+      <canvas id="baseline-chart" height="260"></canvas>
+      <p class="panel-note" id="baseline-note"></p>
+    </div>
+    <div class="panel glass">
+      <div class="section-head compact">
+        <span class="section-tag">Fase 5–6</span>
+        <h2>6 Algoritmos</h2>
+      </div>
+      <canvas id="algorithms-chart" height="260"></canvas>
+    </div>
+  </section>
+
+  <section class="section" id="models">
+    <div class="section-head">
+      <span class="section-tag">Fase 6/7</span>
+      <h2>Comparação & Significância</h2>
+      <p>Top modelos com teste t pareado (α = 0.05) e promoção ao Model Registry.</p>
+    </div>
+    <div class="registry-banner glass" id="registry-banner"></div>
+    <div class="table-wrap glass">
+      <table class="data-table" id="algo-table">
+        <thead>
+          <tr>
+            <th>Algoritmo</th>
+            <th>Run</th>
+            <th>MAE</th>
+            <th>RMSE</th>
+            <th>R²</th>
+            <th>CV MAE</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="examples">
+    <div class="section-head">
+      <span class="section-tag">Holdout</span>
+      <h2>Exemplos reais do dataset</h2>
+      <p>Comparação preço real vs predito — amostra diversificada do conjunto de teste.</p>
+    </div>
+    <div class="examples-grid" id="examples-grid"></div>
+    <div class="panel glass scatter-panel">
+      <h3>Actual vs Predicted</h3>
+      <canvas id="scatter-chart" height="120"></canvas>
+    </div>
+  </section>
+
+  <section class="section" id="predict">
+    <div class="section-head">
+      <span class="section-tag">Fase 8</span>
+      <h2>Simulador de preço</h2>
+      <p>Informe as características principais — demais features usam defaults do treino.</p>
+    </div>
+    <div class="predict-layout">
+      <form class="predict-form glass" id="predict-form">
+        <div class="form-grid">
+          <label>
+            <span>Área habitável (sq ft)</span>
+            <input type="number" name="GrLivArea" value="1710" min="300" max="8000" required />
+          </label>
+          <label>
+            <span>Qualidade geral (1–10)</span>
+            <input type="number" name="OverallQual" value="7" min="1" max="10" required />
+          </label>
+          <label>
+            <span>Ano construção</span>
+            <input type="number" name="YearBuilt" value="2003" min="1872" max="2026" required />
+          </label>
+          <label>
+            <span>Bairro</span>
+            <select name="Neighborhood">
+              <option>CollgCr</option><option>NAmes</option><option>OldTown</option>
+              <option>Edwards</option><option>Somerst</option><option>StoneBr</option>
+              <option>NridgHt</option><option>Timber</option><option>Veenker</option>
+              <option>ClearCr</option><option>Blmngtn</option><option>MeadowV</option>
+            </select>
+          </label>
+          <label>
+            <span>Estilo</span>
+            <select name="HouseStyle">
+              <option>1Story</option><option>2Story</option><option>1.5Fin</option>
+              <option>SLvl</option><option>SFoyer</option>
+            </select>
+          </label>
+          <label>
+            <span>Garagem (carros)</span>
+            <input type="number" name="GarageCars" value="2" min="0" max="5" />
+          </label>
+          <label>
+            <span>Banheiros completos</span>
+            <input type="number" name="FullBath" value="2" min="0" max="5" />
+          </label>
+          <label>
+            <span>Qualidade cozinha</span>
+            <select name="KitchenQual">
+              <option>Ex</option><option>Gd</option><option selected>TA</option><option>Fa</option><option>Po</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit" class="btn-primary">Estimar preço</button>
+      </form>
+      <div class="predict-result glass" id="predict-result">
+        <p class="result-label">Preço estimado</p>
+        <p class="result-price" id="result-price">$—</p>
+        <p class="result-interval" id="result-interval"></p>
+        <div class="result-meta">
+          <span id="result-model">Modelo: —</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>
+      <strong>House Price Prediction Engine</strong>
+      <p>DVC · MLflow · scikit-learn · FastAPI · Docker</p>
+    </div>
+    <div class="footer-links">
+      <a href="/docs" target="_blank">Swagger API</a>
+      <a href="/health" target="_blank">Health</a>
+    </div>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

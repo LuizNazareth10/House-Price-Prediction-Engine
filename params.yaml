@@ -19,6 +19,10 @@ mlflow:
   experiment_name: house-price-prediction
   registered_model_name: house-price-predictor
 
+evaluation:
+  top_n_models: 3
+  significance_level: 0.05
+
 experiments:
   ridge:
     alpha: [0.01, 0.1, 1.0, 10.0, 100.0]

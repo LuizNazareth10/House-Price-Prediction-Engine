@@ -38,17 +38,22 @@ def register_best_model(params: dict[str, Any] | None = None) -> dict[str, Any]:
     client = MlflowClient()
     registered = mlflow.register_model(model_uri=model_uri, name=model_name)
 
-    client.transition_model_version_stage(
-        name=model_name,
-        version=registered.version,
-        stage="Production",
-        archive_existing_versions=True,
-    )
+    try:
+        client.set_registered_model_alias(name=model_name, alias="Production", version=registered.version)
+        stage = "Production"
+    except Exception:
+        client.transition_model_version_stage(
+            name=model_name,
+            version=registered.version,
+            stage="Production",
+            archive_existing_versions=True,
+        )
+        stage = "Production"
 
     result = {
         "registered_model_name": model_name,
         "model_version": registered.version,
-        "stage": "Production",
+        "stage": stage,
         "source_run_id": best_run["run_id"],
         "source_run_name": best_run["run_name"],
         "model_uri": model_uri,
