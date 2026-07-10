@@ -163,3 +163,63 @@ stages:
       hash: md5
       md5: 1829c553f1c4cf8d4f452bba4c842fac
       size: 1620
+  train:
+    cmd: .\venv\Scripts\python.exe -m src.models.train
+    deps:
+    - path: data/interim/clean.csv
+      hash: md5
+      md5: 4ea3d28516c24abc67d3e774f158d6f2
+      size: 437334
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 557a664ebd2beb36d826cb00ce43677d
+      size: 535069
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 9bb3bc58c9afa377717da17b1cdf88e1
+      size: 2116273
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 015f06837033f25d94d97fd662787b4f
+      size: 5810
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1e1adde9b1fea2be0c0bef1d80b1ff77
+      size: 23171
+    - path: src/models/baseline.py
+      hash: md5
+      md5: 7eb09a8c922d61f6a5687d51f6f52d5c
+      size: 8982
+    - path: src/models/metrics.py
+      hash: md5
+      md5: afdd20ad8eed10f10567a0b7e86c7ae7
+      size: 924
+    - path: src/models/train.py
+      hash: md5
+      md5: 559da2ba34e1c6ceb3890a74091ff015
+      size: 12379
+    - path: src/utils/config.py
+      hash: md5
+      md5: 09a6537afda49d818aef2ba42eb934b0
+      size: 565
+    - path: src/utils/mlflow_utils.py
+      hash: md5
+      md5: 1afdbf835a93278f9b73fb7382bf4625
+      size: 1250
+    params:
+      params.yaml:
+        features.log_target: true
+        mlflow.experiment_name: house-price-prediction
+        mlflow.tracking_uri: sqlite:///mlflow.db
+        training.cv_folds: 5
+        training.random_state: 42
+        training.test_size: 0.2
+    outs:
+    - path: models/best_model.pkl
+      hash: md5
+      md5: 7e14c7b0a4f7c658368a433d4de10996
+      size: 13665
+    - path: reports/training_summary.json
+      hash: md5
+      md5: 285d72865bd780d94134cf1d54fd2ad9
+      size: 12256

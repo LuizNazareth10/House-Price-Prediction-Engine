@@ -67,7 +67,7 @@ stages:
       - reports/baseline_comparison.md
 
   train:
-    cmd: python -m src.models.train
+    cmd: .\venv\Scripts\python.exe -m src.models.train
     deps:
       - src/models/train.py
       - src/models/baseline.py

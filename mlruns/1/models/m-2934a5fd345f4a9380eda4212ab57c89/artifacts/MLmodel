@@ -1,0 +1,23 @@
+artifact_path: file:///C:/Users/Luiz/Documents/LuizNazareth/MLOps and AIOps Projects/1-Foundation/mlruns/1/models/m-2934a5fd345f4a9380eda4212ab57c89/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.3
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: pickle
+    sklearn_version: 1.9.0
+    skops_trusted_types: null
+mlflow_version: 3.14.0
+model_id: m-2934a5fd345f4a9380eda4212ab57c89
+model_size_bytes: 774933
+model_uuid: m-2934a5fd345f4a9380eda4212ab57c89
+prompts: null
+run_id: 0479361c342941b59bc07e0c8ac26dd5
+utc_time_created: '2026-07-10 18:28:44.165730'
