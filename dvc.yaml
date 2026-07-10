@@ -18,3 +18,75 @@ stages:
       - data/interim/clean_test.csv
     metrics:
       - data/interim/data_profile.json
+
+  featurize:
+    cmd: python -m src.features.build_features
+    deps:
+      - src/features/build_features.py
+      - src/features/transformers.py
+      - src/utils/config.py
+      - data/interim/clean.csv
+      - data/interim/clean_test.csv
+    params:
+      - training.test_size
+      - training.random_state
+      - features.use_polynomial
+      - features.polynomial_degree
+      - features.log_target
+    outs:
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+      - data/processed/X_inference.csv
+      - data/processed/preprocessor.pkl
+    metrics:
+      - data/processed/features_metadata.json
+
+  baseline:
+    cmd: python -m src.models.baseline
+    deps:
+      - src/models/baseline.py
+      - src/models/metrics.py
+      - src/utils/config.py
+      - data/interim/clean.csv
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+    params:
+      - training.test_size
+      - training.random_state
+      - training.cv_folds
+      - features.log_target
+    outs:
+      - models/baseline_naive.pkl
+      - models/baseline_engineered.pkl
+    metrics:
+      - reports/baseline_metrics.json
+      - reports/baseline_comparison.md
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - src/models/train.py
+      - src/models/baseline.py
+      - src/models/metrics.py
+      - src/utils/mlflow_utils.py
+      - src/utils/config.py
+      - data/interim/clean.csv
+      - data/processed/X_train.csv
+      - data/processed/X_test.csv
+      - data/processed/y_train.csv
+      - data/processed/y_test.csv
+    params:
+      - training.test_size
+      - training.random_state
+      - training.cv_folds
+      - features.log_target
+      - mlflow.experiment_name
+      - mlflow.tracking_uri
+    outs:
+      - models/best_model.pkl
+    metrics:
+      - reports/training_summary.json

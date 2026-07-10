@@ -1,0 +1,36 @@
+{
+  "naive": {
+    "metrics": {
+      "mae": 22978.93178287307,
+      "rmse": 36839.72578819082,
+      "r2": 0.8230628842255207,
+      "cv_mae": 22005.393482135776,
+      "n_features": 36,
+      "experiment": "naive_numeric_only",
+      "description": "LinearRegression on numeric columns only (no categorical encoding, no scaling, no derived features)"
+    },
+    "model_path": "C:\\Users\\Luiz\\Documents\\LuizNazareth\\MLOps and AIOps Projects\\1-Foundation\\models\\baseline_naive.pkl",
+    "feature_strategy": "numeric_only"
+  },
+  "engineered": {
+    "metrics": {
+      "mae": 15367.078069326404,
+      "rmse": 24139.349404150835,
+      "r2": 0.9240308464182818,
+      "cv_mae": 17522.619536872273,
+      "n_features": 277,
+      "experiment": "engineered_pipeline",
+      "description": "LinearRegression on processed features (derived features, imputation, one-hot encoding, scaling, log target)",
+      "log_target": true
+    },
+    "model_path": "C:\\Users\\Luiz\\Documents\\LuizNazareth\\MLOps and AIOps Projects\\1-Foundation\\models\\baseline_engineered.pkl",
+    "feature_strategy": "full_pipeline"
+  },
+  "cv_folds": 5,
+  "summary": {
+    "mae_improvement_pct": 33.125359287675955,
+    "rmse_improvement_pct": 34.47467675807501,
+    "r2_improvement_pct": 12.26734483207431,
+    "conclusion": "O pipeline de feature engineering reduziu o erro e aumentou o R\u00b2 de forma clara. Regress\u00e3o linear pura em features num\u00e9ricas \u00e9 insuficiente para este dataset \u2014 encoding de categ\u00f3ricas, scaling e features derivadas s\u00e3o necess\u00e1rios."
+  }
+}

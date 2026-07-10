@@ -1,0 +1,34 @@
+# Baseline Comparison — Linear Regression
+
+Comparação entre regressão linear **sem** e **com** feature engineering (Fase 4).
+
+## Resultados no holdout (20%)
+
+| Métrica | Sem FE (numéricas apenas) | Com FE (pipeline completo) | Melhoria |
+|---------|---------------------------|----------------------------|----------|
+| MAE ($) | $22,979 | $15,367 | 33.1% |
+| RMSE ($) | $36,840 | $24,139 | 34.5% |
+| R² | 0.8231 | 0.9240 | 12.3% |
+
+## Cross-validation (5-fold)
+
+| Métrica | Sem FE | Com FE |
+|---------|--------|--------|
+| MAE | $22,005 | $17,523 |
+
+## Features utilizadas
+
+| Experimento | Nº de features | Estratégia |
+|-------------|----------------|------------|
+| Sem FE | 36 | Apenas colunas numéricas brutas |
+| Com FE | 277 | Derived + imputation + OHE + scaling |
+
+## Conclusão
+
+O pipeline de feature engineering reduziu o erro e aumentou o R² de forma clara. Regressão linear pura em features numéricas é insuficiente para este dataset — encoding de categóricas, scaling e features derivadas são necessários.
+
+## Artefatos
+
+- Modelo naive: `models/baseline_naive.pkl`
+- Modelo engineered: `models/baseline_engineered.pkl`
+- Métricas JSON: `reports/baseline_metrics.json`

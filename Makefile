@@ -6,7 +6,19 @@ download:
 	$(PYTHON) scripts/download_data.py
 
 prepare:
-	$(PYTHON) src/data/prepare_data.py
+	$(PYTHON) -m src.data.prepare_data
+
+featurize:
+	$(PYTHON) -m src.features.build_features
+
+baseline:
+	$(PYTHON) -m src.models.baseline
+
+train:
+	$(PYTHON) -m src.models.train
+
+mlflow-ui:
+	mlflow ui --port 5000
 
 dvc-init:
 	dvc init -f

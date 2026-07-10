@@ -46,3 +46,120 @@ stages:
       hash: md5
       md5: cab0ed1261de5538c2ba44cedda70536
       size: 570
+  featurize:
+    cmd: python -m src.features.build_features
+    deps:
+    - path: data/interim/clean.csv
+      hash: md5
+      md5: 4ea3d28516c24abc67d3e774f158d6f2
+      size: 437334
+    - path: data/interim/clean_test.csv
+      hash: md5
+      md5: 33c43eb5e2db1f027b9e3bd4e818cbf5
+      size: 85371
+    - path: src/features/build_features.py
+      hash: md5
+      md5: ba1dd4b6735eba50582ae6bc465c3839
+      size: 6778
+    - path: src/features/transformers.py
+      hash: md5
+      md5: 1cd77582fa5a20289230455940e43c51
+      size: 2088
+    - path: src/utils/config.py
+      hash: md5
+      md5: 09a6537afda49d818aef2ba42eb934b0
+      size: 565
+    params:
+      params.yaml:
+        features.log_target: true
+        features.polynomial_degree: 2
+        features.use_polynomial: false
+        training.random_state: 42
+        training.test_size: 0.2
+    outs:
+    - path: data/processed/X_inference.csv
+      hash: md5
+      md5: 557a664ebd2beb36d826cb00ce43677d
+      size: 535069
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 557a664ebd2beb36d826cb00ce43677d
+      size: 535069
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 9bb3bc58c9afa377717da17b1cdf88e1
+      size: 2116273
+    - path: data/processed/features_metadata.json
+      hash: md5
+      md5: 4f6a591b220b33c600a402c101b315ac
+      size: 2611
+    - path: data/processed/preprocessor.pkl
+      hash: md5
+      md5: 53dfbc36556ad20bce247ee1e99bbf3e
+      size: 21012
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 015f06837033f25d94d97fd662787b4f
+      size: 5810
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1e1adde9b1fea2be0c0bef1d80b1ff77
+      size: 23171
+  baseline:
+    cmd: python -m src.models.baseline
+    deps:
+    - path: data/interim/clean.csv
+      hash: md5
+      md5: 4ea3d28516c24abc67d3e774f158d6f2
+      size: 437334
+    - path: data/processed/X_test.csv
+      hash: md5
+      md5: 557a664ebd2beb36d826cb00ce43677d
+      size: 535069
+    - path: data/processed/X_train.csv
+      hash: md5
+      md5: 9bb3bc58c9afa377717da17b1cdf88e1
+      size: 2116273
+    - path: data/processed/y_test.csv
+      hash: md5
+      md5: 015f06837033f25d94d97fd662787b4f
+      size: 5810
+    - path: data/processed/y_train.csv
+      hash: md5
+      md5: 1e1adde9b1fea2be0c0bef1d80b1ff77
+      size: 23171
+    - path: src/models/baseline.py
+      hash: md5
+      md5: 7eb09a8c922d61f6a5687d51f6f52d5c
+      size: 8982
+    - path: src/models/metrics.py
+      hash: md5
+      md5: afdd20ad8eed10f10567a0b7e86c7ae7
+      size: 924
+    - path: src/utils/config.py
+      hash: md5
+      md5: 09a6537afda49d818aef2ba42eb934b0
+      size: 565
+    params:
+      params.yaml:
+        features.log_target: true
+        training.cv_folds: 5
+        training.random_state: 42
+        training.test_size: 0.2
+    outs:
+    - path: models/baseline_engineered.pkl
+      hash: md5
+      md5: 5b0d222a2c4284de3240d5b6cdef6237
+      size: 13631
+    - path: models/baseline_naive.pkl
+      hash: md5
+      md5: 02f21430422642762229949a830e1dec
+      size: 2577
+    - path: reports/baseline_comparison.md
+      hash: md5
+      md5: 3797ef9ae0f1045dc8d13d0af7b1195a
+      size: 1239
+    - path: reports/baseline_metrics.json
+      hash: md5
+      md5: 1829c553f1c4cf8d4f452bba4c842fac
+      size: 1620

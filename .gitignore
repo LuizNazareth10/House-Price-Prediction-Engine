@@ -15,6 +15,10 @@ workspace/*
 # DVC local remote storage
 .dvc-storage/
 
+# MLflow experiment tracking
+mlruns/
+mlflow.db
+
 models/**
 !**/
 !.gitkeep
