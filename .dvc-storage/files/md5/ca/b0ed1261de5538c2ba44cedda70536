@@ -1,0 +1,30 @@
+{
+  "train": {
+    "rows": 1460,
+    "columns": 75,
+    "dropped_high_missing_columns": [
+      "Alley",
+      "MasVnrType",
+      "PoolQC",
+      "Fence",
+      "MiscFeature"
+    ],
+    "missing_columns": 14,
+    "is_train": true,
+    "target_skewness": 1.8828757597682129
+  },
+  "test": {
+    "rows": 292,
+    "columns": 74,
+    "dropped_high_missing_columns": [
+      "Alley",
+      "MasVnrType",
+      "PoolQC",
+      "Fence",
+      "MiscFeature"
+    ],
+    "missing_columns": 13,
+    "is_train": false
+  },
+  "validation_warnings": []
+}

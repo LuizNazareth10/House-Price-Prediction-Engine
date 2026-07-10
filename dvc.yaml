@@ -1,0 +1,20 @@
+stages:
+  prepare:
+    cmd: python -m src.data.prepare_data
+    deps:
+      - src/data/prepare_data.py
+      - src/data/validate_data.py
+      - src/data/load_data.py
+      - src/utils/config.py
+      - data/raw/train.csv
+      - data/raw/test.csv
+    params:
+      - data.id_column
+      - data.missing_threshold
+      - data.min_train_rows
+      - data.min_test_rows
+    outs:
+      - data/interim/clean.csv
+      - data/interim/clean_test.csv
+    metrics:
+      - data/interim/data_profile.json

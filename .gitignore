@@ -1,9 +1,19 @@
 workspace/*
 !.gitkeep
 
-data/**
-!**/
-!.gitkeep
+# Data — versioned by DVC (Git tracks .dvc pointers only)
+/data/raw/*
+!/data/raw/*.dvc
+!/data/raw/.gitignore
+
+/data/interim/*
+!/data/interim/.gitkeep
+
+/data/processed/*
+!/data/processed/.gitkeep
+
+# DVC local remote storage
+.dvc-storage/
 
 models/**
 !**/

@@ -1,0 +1,7 @@
+# Ignore notebook checkpoints and local env in DVC tracking
+.ipynb_checkpoints/
+venv/
+.venv/
+__pycache__/
+*.pyc
+mlruns/

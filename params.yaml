@@ -1,0 +1,18 @@
+data:
+  id_column: Id
+  missing_threshold: 0.5
+  min_train_rows: 1000
+  min_test_rows: 100
+
+training:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+
+model:
+  name: ridge
+  alpha: 1.0
+
+features:
+  use_polynomial: false
+  log_target: true

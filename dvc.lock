@@ -1,0 +1,48 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m src.data.prepare_data
+    deps:
+    - path: data/raw/test.csv
+      hash: md5
+      md5: 75cf36180901053ac0192ed7de327211
+      size: 89871
+    - path: data/raw/train.csv
+      hash: md5
+      md5: d73834ad270abbd6f4a8e51f13247051
+      size: 460107
+    - path: src/data/load_data.py
+      hash: md5
+      md5: 9a5789041268fd804f7129628b9fa170
+      size: 941
+    - path: src/data/prepare_data.py
+      hash: md5
+      md5: bbc5aeb9ce99d452b515bd773109ec90
+      size: 3063
+    - path: src/data/validate_data.py
+      hash: md5
+      md5: 98e8e88c19ebc0cb9ae8a371140df7a7
+      size: 2741
+    - path: src/utils/config.py
+      hash: md5
+      md5: 09a6537afda49d818aef2ba42eb934b0
+      size: 565
+    params:
+      params.yaml:
+        data.id_column: Id
+        data.min_test_rows: 100
+        data.min_train_rows: 1000
+        data.missing_threshold: 0.5
+    outs:
+    - path: data/interim/clean.csv
+      hash: md5
+      md5: 4ea3d28516c24abc67d3e774f158d6f2
+      size: 437334
+    - path: data/interim/clean_test.csv
+      hash: md5
+      md5: 33c43eb5e2db1f027b9e3bd4e818cbf5
+      size: 85371
+    - path: data/interim/data_profile.json
+      hash: md5
+      md5: cab0ed1261de5538c2ba44cedda70536
+      size: 570
